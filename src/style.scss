@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+@mixin inlineFlex {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@mixin columnFlex {
+  display: flex;
+  flex-direction: column;
+}
+
+$basePadding: 1rem;
+$mainDark: #303030;
+$secondaryDark: #404040;
+$mainGray: #eee;
+$secondaryGray: #ccc;
+$white: #fff;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: auto 1fr;
+
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  color: $mainDark;
+}
+
+header {
+  grid-column: span 3;
+  padding: $basePadding;
+  @include inlineFlex();
+
+  background-color: $mainDark;
+  color: $white;
+
+  .logo {
+    @include inlineFlex();
+    margin-right: auto;
+  }
+
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+aside {
+  @include columnFlex();
+  gap: 1rem;
+
+  padding: $basePadding;
+  background-color: $mainGray;
+
+  .home,
+  .projects {
+    @include columnFlex();
+
+    h3 {
+      padding-bottom: $basePadding - 0.5rem;
+      border-bottom: 2px solid $mainDark;
+    }
+  }
+}
+
+main {
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: $basePadding;
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  .tasks-container {
+    @include columnFlex();
+
+    .task {
+      @include inlineFlex();
+      justify-content: space-between;
+
+      .left,
+      .right {
+        @include inlineFlex()
+      }
+    }
+  }
+}
+
+button {
+  @include inlineFlex();
+  background: none;
+  border: none;
+  padding: $basePadding;
+
+  font-family: inherit;
+  font-size: inherit;
+
+  &:hover,
+  &:active {
+    background-color: $secondaryGray;
+    cursor: pointer;
+  }
+}

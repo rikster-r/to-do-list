@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="main.js" defer></script>
+  <script src="https://kit.fontawesome.com/8678e4451d.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="main.css">
+  <link rel="shortcut icon" href="./favicon.svg" type="image/x-icon">
+  <title>To Do List</title>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <i class="fa-regular fa-circle-check"></i>
+      <h1>ToDo List</h1>
+    </div>
+    <a href="https://github.com/rikster-r/to-do-list">&copy; 2022 rikster-r</a>
+  </header>
+  <aside>
+    <div class="home">
+      <h3>Home</h3>
+      <button type="button">
+        <i class="fa-solid fa-inbox"></i>
+        <span>All Tasks</span>
+      </button>
+      <button type="button">
+        <i class="fa-solid fa-calendar-day"></i>
+        <span>Today</span>
+      </button>
+      <button type="button">
+        <i class="fa-regular fa-star"></i>
+        <span>Important</span>
+      </button>
+    </div>
+    <div class="projects">
+      <h3>Projects</h3>
+      <button type="button">
+        <i class="fa-solid fa-plus"></i>
+        <span>New Project</span>
+      </button>
+    </div>
+  </aside>
+  <main>
+    <h3>All Tasks</h3>
+    <div class="tasks-container">
+      <button class="task">
+        <div class="left">
+          <i class="fa-regular fa-circle"></i>
+          <span data-title>Clean Home</span>
+        </div>
+        <div class="right">
+          <span data-date>16.08.2022</span>
+          <i class="fa-regular fa-pen-to-square"></i>
+          <i class="fa-solid fa-trash"></i>
+          <i class="fa-solid fa-angle-down"></i>
+        </div>
+      </button>
+    </div>
+  </main>
+</body>
+
+</html>
