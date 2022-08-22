@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="main.js" defer></script>
-  <script src="https://kit.fontawesome.com/8678e4451d.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/8678e4451d.js" crossorigin="anonymous" defer></script>
   <link rel="stylesheet" href="main.css">
-  <link rel="shortcut icon" href="./favicon.svg" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
   <title>To Do List</title>
 </head>
 
@@ -46,20 +46,39 @@
   </aside>
   <main>
     <h3>All Tasks</h3>
-    <div class="tasks-container">
-      <button class="task">
+    <div class="tasks-container" data-tasks-container>
+      <button class="task finished">
         <div class="left">
           <i class="fa-regular fa-circle"></i>
-          <span data-title>Clean Home</span>
+          <span>Clean Home</span>
         </div>
         <div class="right">
-          <span data-date>16.08.2022</span>
-          <i class="fa-regular fa-pen-to-square"></i>
+          <span>16.08.2022</span>
+          <i class="fa-regular fa-star"></i>
           <i class="fa-solid fa-trash"></i>
           <i class="fa-solid fa-angle-down"></i>
         </div>
       </button>
     </div>
+    <button class="add-task" data-add-task-btn>
+      <i class="fa-solid fa-circle-plus"></i>
+      <span>Add New Task</span>
+    </button>
+    <dialog data-add-task-modal>
+      <form method="dialog" data-add-task-form>
+        <label for="title">*Task</label>
+        <input class="input" type="text" name="title" id="title" required>
+  
+        <label for="description">Description</label>
+        <textarea class="input" name="description" id="description"></textarea>
+  
+        <label for="due-date">*Due Date</label>
+        <input class="input" type="date" name="dueDate" id="due-date" required>
+  
+        <button type="submit" class="submit form-button">Submit</button>
+        <button type="button" class="cancel form-button" data-cancel-modal>Cancel</button>
+      </form>
+    </dialog>
   </main>
 </body>
 
