@@ -1,10 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import display from './display.js';
 
 export class Task {
   constructor(title, description, dueDate) {
-    this._title = title;
-    this._description = description;
+    this._title = title.trim();
+    this._description = description.trim() || 'No Description';
     this._dueDate = dueDate;
     this._priority = 'standard';
     this._id = this.generateId();
@@ -71,33 +70,10 @@ class TaskMutator {
     });
   }
 
-  showDescription(taskObject) {
-    
-  }
-
   changeTaskStatus(taskObject) {
     taskObject.status = (taskObject.status == 'unfinished') ? 'finished' : 'unfinished';
   }
-
-  handleTaskClick(target, taskElement) {
-    let taskId = taskElement.id;
-    let taskObject = this.findTask(taskId);
-  
-    if (target.classList.contains('fa-star')) {
-      this.changePriority(taskObject);
-    } else if (target.classList.contains('fa-trash')) {
-      this.removeTask(taskObject);
-    } else if (target.classList.contains('fa-angle-down')) {
-      this.showDescription(taskObject);
-    } else {
-      this.changeTaskStatus(taskObject);
-    }
-
-    display.updateContainer();
-  }
 }
-
-
 
 let taskMutator = new TaskMutator;
 export default taskMutator;

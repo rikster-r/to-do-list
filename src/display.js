@@ -1,4 +1,5 @@
 import taskMutator from './tasks.js';
+import handleTaskClick from './index.js';
 
 class Display {
   constructor() {
@@ -13,12 +14,16 @@ class Display {
     task.id = taskObject.id;
     task.addEventListener('click', function (e) {
       let targetElement = (e.target.tagName === 'path') ?  e.target.parentElement : e.target;
-      taskMutator.handleTaskClick(targetElement, this);
+      handleTaskClick(targetElement, this);
     });
+
+    let taskMain = document.createElement('div');
+    taskMain.classList.add('task-main');
+    task.append(taskMain);
 
     let leftSide = document.createElement('div');
     leftSide.classList.add('left');
-    task.append(leftSide);
+    taskMain.append(leftSide);
 
     let checkboxIcon = document.createElement('i');
     checkboxIcon.classList.add('fa-regular');
@@ -32,7 +37,7 @@ class Display {
 
     let rightSide = document.createElement('div');
     rightSide.classList.add('right');
-    task.append(rightSide);
+    taskMain.append(rightSide);
 
     let dateSpan = document.createElement('span');
     dateSpan.innerText = taskObject.dueDate;
@@ -51,6 +56,14 @@ class Display {
     angleIcon.classList.add('fa-solid', 'fa-angle-down');
     rightSide.append(angleIcon);
 
+    let desc = document.createElement('div');
+    desc.classList.add('task-desc', 'hidden');
+    task.append(desc);
+
+    let p = document.createElement('p');
+    p.innerText = taskObject.description;
+    desc.append(p);
+
     return task;
   }
 
@@ -60,10 +73,17 @@ class Display {
 
   updateContainer() {
     this.clearContainer();
+    console.log(taskMutator.tasks)
 
     taskMutator.tasks.forEach(item => {
       this.container.append(this.createTaskDOM(item));
     })
+  }
+
+  changeDescriptionVisibility(taskElement, angleIcon) {
+    taskElement.children[1].classList.toggle('hidden');
+    angleIcon.classList.toggle('fa-angle-down');
+    angleIcon.classList.toggle('fa-angle-up');
   }
 }
 

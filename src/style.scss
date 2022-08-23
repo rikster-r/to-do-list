@@ -17,8 +17,11 @@ $secondaryDark: #404040;
 $mainGray: #eee;
 $secondaryGray: #ccc;
 $white: #fff;
+$blue: #006cfb;
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -75,6 +78,11 @@ aside {
       border-bottom: 2px solid $mainDark;
     }
   }
+
+  .folder:focus,
+  .folder:active {
+    border-left: 4px solid $secondaryDark;
+  }
 }
 
 main {
@@ -86,46 +94,67 @@ main {
   h3 {
     margin-bottom: 1rem;
   }
+
+  svg {
+    padding: 0.5rem;
+  }
 }
 
 .tasks-container {
   @include columnFlex();
 
   .task {
-    @include inlineFlex();
-    justify-content: space-between;
-    width: 100%;
+    @include columnFlex();
+    gap: 0.5rem;
 
-    &:hover,
-    &:active {
-      background-color: initial;
-      cursor: pointer;
+    .task-main {
+      @include inlineFlex();
+      justify-content: space-between;
+      width: 100%;
+
+      .left,
+      .right {
+        @include inlineFlex();
+
+        svg:hover {
+          outline: 2px dotted $mainDark;
+          outline-offset: 2px;
+        }
+      }
     }
 
-    .left,
-    .right {
-      @include inlineFlex();
-
-      svg:hover {
-        outline: 2px dotted $mainDark;
-        outline-offset: 2px;
-      }
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: initial;
     }
 
     &.finished .left span {
       position: relative;
 
-      &::before{
+      &::before {
         content: '';
         position: absolute;
         top: 50%;
-  
+
         height: 2px;
         width: 100%;
         background: $mainDark;
       }
     }
+
+    .task-desc {
+      margin-left: 2rem;
+
+      font-size: 0.8rem;
+      text-align: left;
+      align-self: flex-start;
+    }
   }
+}
+
+.hidden {
+  display: none;
 }
 
 .add-task {
@@ -160,6 +189,10 @@ form {
     font-family: inherit;
     font-size: inherit;
     padding: 0.3rem;
+
+    &:focus {
+      outline-color: $blue;
+    }
   }
 
   textarea {
@@ -169,11 +202,17 @@ form {
     min-width: 400px;
   }
 
+  .submit {
+    background-color: $secondaryDark;
+    color: $white;
+  }
+
   .cancel {
     width: fit-content;
   }
 
   .form-button {
+    margin-top: 0.5rem;
     border: 1px solid $secondaryDark;
     border-radius: 0.5rem;
     padding: 0.5rem $basePadding;
@@ -190,6 +229,7 @@ button {
   font-size: inherit;
 
   &:hover,
+  &:focus,
   &:active {
     background-color: $secondaryGray;
     cursor: pointer;

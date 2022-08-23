@@ -23,21 +23,25 @@
   <aside>
     <div class="home">
       <h3>Home</h3>
-      <button type="button">
+      <button class="folder" type="button">
         <i class="fa-solid fa-inbox"></i>
         <span>All Tasks</span>
       </button>
-      <button type="button">
+      <button class="folder" type="button">
         <i class="fa-solid fa-calendar-day"></i>
         <span>Today</span>
       </button>
-      <button type="button">
+      <button class="folder" type="button">
         <i class="fa-regular fa-star"></i>
         <span>Important</span>
       </button>
     </div>
     <div class="projects">
       <h3>Projects</h3>
+      <button class="folder" type="button">
+        <i class="fa-solid fa-bars"></i>
+        <span>General</span>
+      </button>
       <button type="button">
         <i class="fa-solid fa-plus"></i>
         <span>New Project</span>
@@ -45,20 +49,28 @@
     </div>
   </aside>
   <main>
-    <h3>All Tasks</h3>
+    <h3 data-container-title>General</h3>
     <div class="tasks-container" data-tasks-container>
-      <button class="task finished">
-        <div class="left">
-          <i class="fa-regular fa-circle"></i>
-          <span>Clean Home</span>
+      <button class="task">
+        <div class="task-main">
+          <div class="left">
+            <i class="fa-regular fa-circle"></i>
+            <span>Clean Home</span>
+          </div>
+          <div class="right">
+            <span>16.08.2022</span>
+            <i class="fa-regular fa-star"></i>
+            <i class="fa-solid fa-trash"></i>
+            <i class="fa-solid fa-angle-down"></i>
+          </div>
         </div>
-        <div class="right">
-          <span>16.08.2022</span>
-          <i class="fa-regular fa-star"></i>
-          <i class="fa-solid fa-trash"></i>
-          <i class="fa-solid fa-angle-down"></i>
+        <div class="task-desc hidden">
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum id consequuntur recusandae, vel aspernatur labore delectus! Animi, totam! Autem delectus ut non impedit aliquam dolores aliquid architecto consequuntur sapiente velit.</p>
         </div>
       </button>
+    </div>
+    </button>
+
     </div>
     <button class="add-task" data-add-task-btn>
       <i class="fa-solid fa-circle-plus"></i>
@@ -68,13 +80,13 @@
       <form method="dialog" data-add-task-form>
         <label for="title">*Task</label>
         <input class="input" type="text" name="title" id="title" required>
-  
+
         <label for="description">Description</label>
         <textarea class="input" name="description" id="description"></textarea>
-  
-        <label for="due-date">*Due Date</label>
-        <input class="input" type="date" name="dueDate" id="due-date" required>
-  
+
+        <label for="due-date">Due Date</label>
+        <input class="input" type="date" name="dueDate" id="due-date">
+
         <button type="submit" class="submit form-button">Submit</button>
         <button type="button" class="cancel form-button" data-cancel-modal>Cancel</button>
       </form>
