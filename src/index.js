@@ -1,54 +1,16 @@
 import "./style.scss";
 import display from './display.js';
-import {Task} from './tasks.js';
-import taskMutator from './tasks.js';
-import storage from './local.js';
-import { v4 as uuidv4 } from 'uuid';
+import {handleNewTask} from './eventHandlers.js';
 
-function generateId() {
-  return uuidv4();
-}
-
-function handleSubmit(formData) {
-  let title = formData.get('title');
-  let description = formData.get('description')
-  let dueDate = formData.get('dueDate');
-
-  let task = new Task(title, description, dueDate);
-
-  storage.updateTask(generateId(), task)
-  display.updateContainer();
-}
-
-export default function handleTaskClick(target, taskElement) {
-  let taskId = taskElement.id;
-  let taskObject = storage.getCurrentProject()[taskId];
-
-  if (target.classList.contains('fa-star')) {
-    taskObject = taskMutator.changePriority(taskObject);
-    storage.updateTask(taskId, taskObject);
-    display.updateContainer();
-
-  } else if (target.classList.contains('fa-trash')) {
-    storage.removeTask(taskId);
-    display.updateContainer();
-
-  } else if (target.classList.contains('fa-angle-down') || target.classList.contains('fa-angle-up')) {
-    display.changeDescriptionVisibility(taskElement, target);
-
-  } else {
-    taskObject = taskMutator.changeTaskStatus(taskObject);
-    storage.updateTask(taskId, taskObject);
-    display.updateContainer();
-
-  }
-}
-
-const addTaskButton = document.querySelector('[data-add-task-btn]')
+const addTaskModal = document.querySelector('[data-add-task-modal]');
 const addTaskForm = document.querySelector('[data-add-task-form]');
-const addTaskModal = document.querySelector('[data-add-task-modal]')
 const cancelModalButton = document.querySelector('[data-cancel-modal]');
+const addTaskButton = document.querySelector('[data-add-task-btn]')
+
 const containerTitle = document.querySelector('[data-container-title]');
+const addProjectButton = document.querySelector('[data-add-project]');
+const addProjectForm = document.querySelector('[data-add-project-form]');
+const cancelProjectButton = document.querySelector('[data-cancel-project]');
 
 addTaskButton.addEventListener('click', function() {
   addTaskForm.reset();
@@ -61,8 +23,20 @@ cancelModalButton.addEventListener('click', function() {
 
 addTaskForm.addEventListener('submit', function() {
   let formData = new FormData(this);
-  handleSubmit(formData);
+  handleNewTask(formData);
 })
+
+addProjectButton.addEventListener('click', function() {
+  addProjectButton.classList.add('hidden');
+  addProjectForm.reset();
+  addProjectForm.classList.remove('hidden');
+})
+
+cancelProjectButton.addEventListener('click', function() {
+  addProjectButton.classList.remove('hidden');
+  addProjectForm.classList.add('hidden');
+})
+
 
 display.updateContainer();
 

@@ -18,11 +18,12 @@
       <i class="fa-regular fa-circle-check"></i>
       <h1>ToDo List</h1>
     </div>
-    <a href="https://github.com/rikster-r/to-do-list">&copy; 2022 rikster-r</a>
+    <a href="https://github.com/rikster-r/to-do-list">&copy; 2022 rikster-r<i class="fa-brands fa-github"></i></a>
   </header>
   <aside>
     <div class="home">
       <h3>Home</h3>
+
       <button class="folder" type="button">
         <i class="fa-solid fa-inbox"></i>
         <span>All Tasks</span>
@@ -36,46 +37,40 @@
         <span>Important</span>
       </button>
     </div>
+
     <div class="projects">
       <h3>Projects</h3>
-      <button class="folder" type="button" autofocus>
-        <i class="fa-solid fa-bars"></i>
-        <span>General</span>
-      </button>
-      <button type="button">
+      <div class="projects-container">
+        <button class="folder" type="button" autofocus>
+          <i class="fa-solid fa-bars"></i>
+          <span>General</span>
+        </button>
+      </div>
+
+      <button type="button" data-add-project>
         <i class="fa-solid fa-plus"></i>
         <span>New Project</span>
       </button>
+
+      <form class="hidden sidebar-form" data-add-project-form>
+        <input type="text" name="projectName" class="input">
+
+        <div class="btn-container">
+          <button type="submit" class="submit">Submit</button>
+          <button type="button" class="cancel" data-cancel-project>Cancel</button>
+        </div>
+      </form>
     </div>
   </aside>
   <main>
     <h3 data-container-title>General</h3>
-    <div class="tasks-container" data-tasks-container>
-      <button class="task">
-        <div class="task-main">
-          <div class="left">
-            <i class="fa-regular fa-circle"></i>
-            <span>Clean Home</span>
-          </div>
-          <div class="right">
-            <span>16.08.2022</span>
-            <i class="fa-regular fa-star"></i>
-            <i class="fa-solid fa-trash"></i>
-            <i class="fa-solid fa-angle-down"></i>
-          </div>
-        </div>
-        <div class="task-desc hidden">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum id consequuntur recusandae, vel aspernatur labore delectus! Animi, totam! Autem delectus ut non impedit aliquam dolores aliquid architecto consequuntur sapiente velit.</p>
-        </div>
-      </button>
-    </div>
-    </button>
+    <div class="tasks-container" data-tasks-container></div>
 
-    </div>
     <button class="add-task" data-add-task-btn>
       <i class="fa-solid fa-circle-plus"></i>
       <span>Add New Task</span>
     </button>
+
     <dialog data-add-task-modal>
       <form method="dialog" data-add-task-form>
         <label for="title">*Task</label>

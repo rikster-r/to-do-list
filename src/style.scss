@@ -36,20 +36,21 @@ body {
   font-size: 1rem;
   font-family: 'Poppins', sans-serif;
   color: $mainDark;
-
 }
 
 header {
   grid-column: span 3;
-  padding: $basePadding;
   @include inlineFlex();
+  justify-content: space-between;
 
+  padding: $basePadding;
   background-color: $mainDark;
   color: $white;
+  white-space: nowrap;
 
-  .logo {
+  .logo,
+  .author {
     @include inlineFlex();
-    margin-right: auto;
   }
 
   a {
@@ -58,6 +59,10 @@ header {
 
     &:hover {
       text-decoration: underline;
+    }
+
+    svg {
+      margin-left: 0.5rem;
     }
   }
 }
@@ -69,14 +74,15 @@ aside {
   padding: $basePadding;
   background-color: $mainGray;
 
-  .home,
-  .projects {
-    @include columnFlex();
+  h3 {
+    padding-bottom: $basePadding - 0.5rem;
+    border-bottom: 2px solid $mainDark;
+  }
 
-    h3 {
-      padding-bottom: $basePadding - 0.5rem;
-      border-bottom: 2px solid $mainDark;
-    }
+  .home,
+  .projects,
+  .projects-container {
+    @include columnFlex();
   }
 
   .folder:focus,
@@ -156,7 +162,7 @@ main {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .add-task {
@@ -218,6 +224,25 @@ form {
     border: 1px solid $secondaryDark;
     border-radius: 0.5rem;
     padding: 0.5rem $basePadding;
+  }
+}
+
+.sidebar-form {
+  @include columnFlex();
+  gap: 0.5rem;
+
+  input {
+    width: 100%;
+  }
+
+  .btn-container {
+    @include inlineFlex();
+    height: 100%;
+
+    button {
+      height: 70%;
+      margin-top: 0;
+    }
   }
 }
 

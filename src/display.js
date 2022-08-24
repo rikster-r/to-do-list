@@ -1,5 +1,4 @@
-import handleTaskClick from './index.js';
-import storage from './local.js';
+import {handleTaskClick} from './eventHandlers.js';
 
 class Display {
   constructor() {
@@ -71,12 +70,11 @@ class Display {
     this.container.innerHTML = '';
   }
 
-  updateContainer() {
+  updateContainer(targetProject) {
     this.clearContainer();
 
-    let currentProject = storage.getCurrentProject();
-    for (let key in currentProject) {
-      this.container.append(this.createTaskDOM(key, currentProject[key]));
+    for (let key in targetProject) {
+      this.container.append(this.createTaskDOM(key, targetProject[key]));
     }
   }
 

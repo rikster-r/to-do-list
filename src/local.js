@@ -1,6 +1,10 @@
 class Local {
   constructor() {
     this._currentProjectName = 'general';
+
+    if (localStorage.length === 0) {
+      localStorage.setItem('general', JSON.stringify({}));
+    }
   }
 
   updateTask(taskId, taskObject) {
@@ -17,12 +21,12 @@ class Local {
     localStorage.setItem(this._currentProjectName, JSON.stringify(currentProjectTasks));
   }
 
-  getProject(projectName) {
-    return JSON.parse(localStorage.getItem(projectName));
-  }
-
   getCurrentProject() {
     return JSON.parse(localStorage.getItem(this._currentProjectName));
+  }
+
+  addProject(name) {
+    localStorage.setItem(name, JSON.stringify({}));
   }
 
   set currentProjectName(value) {
