@@ -2,6 +2,12 @@ import "./style.scss";
 import display from './display.js';
 import {Task} from './tasks.js';
 import taskMutator from './tasks.js';
+import storage from './local.js';
+import { v4 as uuidv4 } from 'uuid';
+
+function generateId() {
+  return uuidv4();
+}
 
 function handleSubmit(formData) {
   let title = formData.get('title');
@@ -10,25 +16,31 @@ function handleSubmit(formData) {
 
   let task = new Task(title, description, dueDate);
 
-  taskMutator.tasks.push(task);
+  storage.updateTask(generateId(), task)
   display.updateContainer();
 }
 
 export default function handleTaskClick(target, taskElement) {
   let taskId = taskElement.id;
-  let taskObject = taskMutator.findTask(taskId);
+  let taskObject = storage.getCurrentProject()[taskId];
 
   if (target.classList.contains('fa-star')) {
-    taskMutator.changePriority(taskObject);
+    taskObject = taskMutator.changePriority(taskObject);
+    storage.updateTask(taskId, taskObject);
     display.updateContainer();
+
   } else if (target.classList.contains('fa-trash')) {
-    taskMutator.removeTask(taskObject);
+    storage.removeTask(taskId);
     display.updateContainer();
+
   } else if (target.classList.contains('fa-angle-down') || target.classList.contains('fa-angle-up')) {
     display.changeDescriptionVisibility(taskElement, target);
+
   } else {
-    taskMutator.changeTaskStatus(taskObject);
+    taskObject = taskMutator.changeTaskStatus(taskObject);
+    storage.updateTask(taskId, taskObject);
     display.updateContainer();
+
   }
 }
 
@@ -51,5 +63,7 @@ addTaskForm.addEventListener('submit', function() {
   let formData = new FormData(this);
   handleSubmit(formData);
 })
+
+display.updateContainer();
 
 //TODO new project;

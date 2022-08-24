@@ -82,6 +82,7 @@ aside {
   .folder:focus,
   .folder:active {
     border-left: 4px solid $secondaryDark;
+    outline: none;
   }
 }
 
@@ -115,6 +116,7 @@ main {
       .left,
       .right {
         @include inlineFlex();
+        text-align: left;
 
         svg:hover {
           outline: 2px dotted $mainDark;

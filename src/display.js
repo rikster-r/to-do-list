@@ -1,19 +1,19 @@
-import taskMutator from './tasks.js';
 import handleTaskClick from './index.js';
+import storage from './local.js';
 
 class Display {
   constructor() {
     this.container = document.querySelector('[data-tasks-container]');
   }
 
-  createTaskDOM(taskObject) {
+  createTaskDOM(id, taskObject) {
     let task = document.createElement('button');
     task.classList.add('task');
     if (taskObject.status === 'finished') task.classList.add('finished');
     if (taskObject.status === 'unfinished') task.classList.remove('finished');
-    task.id = taskObject.id;
+    task.id = id.toString();
     task.addEventListener('click', function (e) {
-      let targetElement = (e.target.tagName === 'path') ?  e.target.parentElement : e.target;
+      let targetElement = (e.target.tagName === 'path') ? e.target.parentElement : e.target;
       handleTaskClick(targetElement, this);
     });
 
@@ -73,11 +73,11 @@ class Display {
 
   updateContainer() {
     this.clearContainer();
-    console.log(taskMutator.tasks)
 
-    taskMutator.tasks.forEach(item => {
-      this.container.append(this.createTaskDOM(item));
-    })
+    let currentProject = storage.getCurrentProject();
+    for (let key in currentProject) {
+      this.container.append(this.createTaskDOM(key, currentProject[key]));
+    }
   }
 
   changeDescriptionVisibility(taskElement, angleIcon) {

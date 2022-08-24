@@ -20,7 +20,6 @@
   "homepage": "https://github.com/rikster-r/to-do-list#readme",
   "devDependencies": {
     "css-loader": "^6.7.1",
-    "eslint": "^8.22.0",
     "mini-css-extract-plugin": "^2.6.1",
     "sass": "^1.54.5",
     "sass-loader": "^13.0.2",
