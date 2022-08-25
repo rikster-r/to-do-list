@@ -30,6 +30,7 @@ addProjectButton.addEventListener('click', function () {
   addProjectButton.classList.add('hidden');
   addProjectForm.reset();
   addProjectForm.classList.remove('hidden');
+  addProjectForm.firstElementChild.focus();
 })
 
 addProjectForm.addEventListener('submit', function (e) {

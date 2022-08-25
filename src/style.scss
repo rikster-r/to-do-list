@@ -11,6 +11,19 @@
   flex-direction: column;
 }
 
+@mixin tooltip {
+  position: absolute;
+
+  padding: 0.5rem;
+  border-radius: 1rem;
+  margin-left: 0.3rem;
+
+  font-size: 0.7rem;
+  font-weight: 500;
+  background-color: $mainDark;
+  color: $white;
+}
+
 $basePadding: 1rem;
 $mainDark: #303030;
 $secondaryDark: #404040;
@@ -79,48 +92,44 @@ aside {
     border-bottom: 2px solid $mainDark;
     white-space: nowrap;
     position: relative;
+  }
 
-    &:hover::after {
-      content: 'No case sensitive repeating names - custom or given (e.g. All Tasks)';
-      position: absolute;
+  .home,
+  .projects,
+  .projects-container,
+  .folders-container {
+    @include columnFlex();
+    text-align: left;
+  }
 
+  .projects h3:hover::after {
+    @include tooltip();
+    content: "No case sensitive repeating names - custom or given (e.g. All Tasks)";
+  }
+
+  .home h3:hover::after {
+    @include tooltip();
+    content: "Controls not working and I'm to lazy to fix";
+  }
+
+  .projects-container {
+    .cross-icon {
+      margin-left: auto;
       padding: 0.5rem;
-      border-radius: 1rem;
-      margin-left: 0.3rem;
 
-      font-size: 0.7rem;
-      font-weight: 500;
-      background-color: $mainDark;
-      color: $white;
+      &:hover {
+        outline: 2px dotted $mainDark;
+        outline-offset: 2px;
+      }
     }
   }
-}
 
-.home,
-.projects,
-.projects-container,
-.folders-container {
-  @include columnFlex();
-  text-align: left;
-}
-
-.projects-container {
-  .cross-icon {
-    margin-left: auto;
-    padding: 0.5rem;
-
-    &:hover {
-      outline: 2px dotted $mainDark;
-      outline-offset: 2px;
+  .projects-container,
+  .folders-container {
+    .active {
+      border-left: 4px solid $secondaryDark;
+      background-color: $secondaryGray;
     }
-  }
-}
-
-.projects-container,
-.folders-container {
-  .active {
-    border-left: 4px solid $secondaryDark;
-    background-color: $secondaryGray;
   }
 }
 
@@ -232,6 +241,10 @@ form {
 
     &:focus {
       outline-color: $blue;
+    }
+
+    &:not(:focus)invalid {
+      outline: 2px solid #DC2626;
     }
   }
 
