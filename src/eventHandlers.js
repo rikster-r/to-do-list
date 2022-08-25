@@ -4,6 +4,9 @@ import display from './display.js';
 import storage from './local.js';
 import { v4 as uuidv4 } from 'uuid';
 
+const containerTitle = document.querySelector('[data-container-title]');
+const allTasksFolder = document.querySelector('[data-all-tasks]');
+
 function generateId() {
   return uuidv4();
 }
@@ -42,3 +45,32 @@ export function handleTaskClick(target, taskElement) {
 
   }
 }
+
+export function handleNewProject(formData) {
+  let title = formData.get('title');
+
+  storage.addProject(title);
+  display.updateProjectsContainer();
+}
+
+export function handleFolderChange(target) {
+  let title = target.children[1].innerText; //<span>General</span>
+
+  containerTitle.innerText = title;
+  storage.currentProjectName = title;
+
+  display.changeActiveFolder(target)
+  display.updateContainer(storage.getCurrentProject());
+}
+
+export function handleProjectRemove(target) {
+  console.log(target)
+  let title = target.children[1].innerText;
+  storage.removeProject(title);
+  display.updateProjectsContainer();
+
+  if (target.classList.contains('active')) handleFolderChange(allTasksFolder);
+}
+
+display.updateContainer(storage.getCurrentProject());
+display.updateProjectsContainer();

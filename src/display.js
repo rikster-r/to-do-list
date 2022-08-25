@@ -1,8 +1,9 @@
-import {handleTaskClick} from './eventHandlers.js';
+import { handleTaskClick } from './eventHandlers.js';
 
 class Display {
   constructor() {
-    this.container = document.querySelector('[data-tasks-container]');
+    this.tasksContainer = document.querySelector('[data-tasks-container]');
+    this.projectsContainer = document.querySelector('[data-projects-container]');
   }
 
   createTaskDOM(id, taskObject) {
@@ -66,15 +67,15 @@ class Display {
     return task;
   }
 
-  clearContainer() {
-    this.container.innerHTML = '';
+  clearContainer(container) {
+    container.innerHTML = '';
   }
 
   updateContainer(targetProject) {
-    this.clearContainer();
+    this.clearContainer(this.tasksContainer);
 
     for (let key in targetProject) {
-      this.container.append(this.createTaskDOM(key, targetProject[key]));
+      this.tasksContainer.append(this.createTaskDOM(key, targetProject[key]));
     }
   }
 
@@ -82,6 +83,46 @@ class Display {
     taskElement.children[1].classList.toggle('hidden');
     angleIcon.classList.toggle('fa-angle-down');
     angleIcon.classList.toggle('fa-angle-up');
+  }
+
+  createProjectDOM(title) {
+    let project = document.createElement('button');
+    project.classList.add('folder');
+
+    let menuIcon = document.createElement('i');
+    menuIcon.classList.add('fa-solid', 'fa-bars');
+    project.append(menuIcon);
+
+    let span = document.createElement('span');
+    span.innerText = title;
+    project.append(span);
+
+    if (title !== 'General') {
+      let crossIcon = document.createElement('i');
+      crossIcon.classList.add('fa-solid', 'fa-xmark', 'cross-icon');
+      project.append(crossIcon);
+    }
+
+    return project;
+  }
+
+  updateProjectsContainer() {
+    this.clearContainer(this.projectsContainer);
+
+    for (let key of Object.keys(localStorage)) {
+      this.projectsContainer.append(this.createProjectDOM(key));
+    }
+  }
+
+  changeActiveFolder(target) {
+    document.querySelectorAll('[data-projects-container] > *').forEach(button => {
+      button.classList.remove('active');
+    });
+    document.querySelectorAll('[data-folders-container] > *').forEach(button => {
+      button.classList.remove('active');
+    });;
+
+    target.classList.add('active');
   }
 }
 

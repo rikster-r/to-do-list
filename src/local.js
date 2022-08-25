@@ -1,9 +1,9 @@
 class Local {
   constructor() {
-    this._currentProjectName = 'general';
+    this._currentProjectName = 'General';
 
     if (localStorage.length === 0) {
-      localStorage.setItem('general', JSON.stringify({}));
+      localStorage.setItem('General', JSON.stringify({}));
     }
   }
 
@@ -27,6 +27,10 @@ class Local {
 
   addProject(name) {
     localStorage.setItem(name, JSON.stringify({}));
+  }
+
+  removeProject(name) {
+    localStorage.removeItem(name)
   }
 
   set currentProjectName(value) {

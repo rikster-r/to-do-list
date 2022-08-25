@@ -24,23 +24,26 @@
     <div class="home">
       <h3>Home</h3>
 
-      <button class="folder" type="button">
-        <i class="fa-solid fa-inbox"></i>
-        <span>All Tasks</span>
-      </button>
-      <button class="folder" type="button">
-        <i class="fa-solid fa-calendar-day"></i>
-        <span>Today</span>
-      </button>
-      <button class="folder" type="button">
-        <i class="fa-regular fa-star"></i>
-        <span>Important</span>
-      </button>
+      <div class="folders-container" data-folders-container>
+        <button class="folder" type="button" data-all-tasks>
+          <i class="fa-solid fa-inbox"></i>
+          <span>All Tasks</span>
+        </button>
+        <button class="folder" type="button">
+          <i class="fa-solid fa-calendar-day"></i>
+          <span>Today</span>
+        </button>
+        <button class="folder" type="button">
+          <i class="fa-regular fa-star"></i>
+          <span>Important</span>
+        </button>
+      </div>
     </div>
 
     <div class="projects">
-      <h3>Projects</h3>
-      <div class="projects-container">
+      <h3>Projects <span>(no repeating names)</span></h3>
+
+      <div class="projects-container" data-projects-container>
         <button class="folder" type="button" autofocus>
           <i class="fa-solid fa-bars"></i>
           <span>General</span>
@@ -53,7 +56,7 @@
       </button>
 
       <form class="hidden sidebar-form" data-add-project-form>
-        <input type="text" name="projectName" class="input">
+        <input type="text" name="title" class="input">
 
         <div class="btn-container">
           <button type="submit" class="submit">Submit</button>

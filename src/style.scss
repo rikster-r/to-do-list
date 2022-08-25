@@ -77,12 +77,40 @@ aside {
   h3 {
     padding-bottom: $basePadding - 0.5rem;
     border-bottom: 2px solid $mainDark;
+    white-space: nowrap;
+
+    span {
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
   }
 
   .home,
   .projects,
-  .projects-container {
+  .projects-container,
+  .folders-container {
     @include columnFlex();
+    text-align: left;
+  }
+
+  .projects-container {
+    .cross-icon {
+      margin-left: auto;
+      padding: 0.5rem;
+
+      &:hover {
+        outline: 2px dotted $mainDark;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .projects-container,
+  .folders-container {
+    .active {
+      border-left: 4px solid $secondaryDark;
+      background-color: $secondaryGray;
+    }
   }
 
   .folder:focus,
@@ -255,9 +283,7 @@ button {
   font-family: inherit;
   font-size: inherit;
 
-  &:hover,
-  &:focus,
-  &:active {
+  &:hover {
     background-color: $secondaryGray;
     cursor: pointer;
   }
