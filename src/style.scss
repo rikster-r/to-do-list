@@ -78,45 +78,49 @@ aside {
     padding-bottom: $basePadding - 0.5rem;
     border-bottom: 2px solid $mainDark;
     white-space: nowrap;
+    position: relative;
 
-    span {
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-  }
+    &:hover::after {
+      content: 'No case sensitive repeating names - custom or given (e.g. All Tasks)';
+      position: absolute;
 
-  .home,
-  .projects,
-  .projects-container,
-  .folders-container {
-    @include columnFlex();
-    text-align: left;
-  }
-
-  .projects-container {
-    .cross-icon {
-      margin-left: auto;
       padding: 0.5rem;
+      border-radius: 1rem;
+      margin-left: 0.3rem;
 
-      &:hover {
-        outline: 2px dotted $mainDark;
-        outline-offset: 2px;
-      }
+      font-size: 0.7rem;
+      font-weight: 500;
+      background-color: $mainDark;
+      color: $white;
     }
   }
+}
 
-  .projects-container,
-  .folders-container {
-    .active {
-      border-left: 4px solid $secondaryDark;
-      background-color: $secondaryGray;
+.home,
+.projects,
+.projects-container,
+.folders-container {
+  @include columnFlex();
+  text-align: left;
+}
+
+.projects-container {
+  .cross-icon {
+    margin-left: auto;
+    padding: 0.5rem;
+
+    &:hover {
+      outline: 2px dotted $mainDark;
+      outline-offset: 2px;
     }
   }
+}
 
-  .folder:focus,
-  .folder:active {
+.projects-container,
+.folders-container {
+  .active {
     border-left: 4px solid $secondaryDark;
-    outline: none;
+    background-color: $secondaryGray;
   }
 }
 

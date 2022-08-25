@@ -49,6 +49,11 @@ export function handleTaskClick(target, taskElement) {
 export function handleNewProject(formData) {
   let title = formData.get('title');
 
+  if (['All Tasks', 'Today', 'Important'].includes(title)) {
+    alert('No repeating names!')
+    return;
+  }
+
   storage.addProject(title);
   display.updateProjectsContainer();
 }
@@ -60,11 +65,49 @@ export function handleFolderChange(target) {
   storage.currentProjectName = title;
 
   display.changeActiveFolder(target)
-  display.updateContainer(storage.getCurrentProject());
+  display.updateContainer(getFolderObject(title));
+}
+
+function getFolderObject(title) {
+  if (!['All Tasks', 'Today', 'Important'].includes(title)) {
+    return storage.getCurrentProject('');
+  }
+
+  let returnObject = {};
+
+  for (let projectTitle of Object.keys(localStorage)) {
+    let projectObject = JSON.parse(localStorage[projectTitle]);
+
+    for (let taskId in projectObject) {
+      switch (title) {
+        case 'All Tasks':
+          returnObject[taskId] = projectObject[taskId];
+          break;
+        case 'Today':
+          let date = new Date();
+          let yy = date.getFullYear();
+          let mm = `${date.getMonth() + 1}`;
+          mm = (mm.length === 1) ? `0${mm}` : mm; //add leading zero if month is 1 digit;
+          let dd = date.getDate();
+          let today = `${yy}-${mm}-${dd}`;
+
+          if (projectObject[taskId].dueDate === today) {
+            returnObject[taskId] = projectObject[taskId];
+          }
+          break;
+        case 'Important':
+          if (projectObject[taskId].priority === 'high') {
+            returnObject[taskId] = projectObject[taskId];
+          }
+          break;
+      }
+    }
+  }
+
+  return returnObject;
 }
 
 export function handleProjectRemove(target) {
-  console.log(target)
   let title = target.children[1].innerText;
   storage.removeProject(title);
   display.updateProjectsContainer();

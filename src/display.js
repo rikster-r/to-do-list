@@ -87,7 +87,6 @@ class Display {
 
   createProjectDOM(title) {
     let project = document.createElement('button');
-    project.classList.add('folder');
 
     let menuIcon = document.createElement('i');
     menuIcon.classList.add('fa-solid', 'fa-bars');
