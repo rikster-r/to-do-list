@@ -5,7 +5,6 @@ import storage from './local.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const containerTitle = document.querySelector('[data-container-title]');
-const allTasksFolder = document.querySelector('[data-all-tasks]');
 
 function generateId() {
   return uuidv4();
@@ -114,8 +113,11 @@ export function handleProjectRemove(target) {
   storage.removeProject(title);
   display.updateProjectsContainer();
 
-  if (target.classList.contains('active')) handleFolderChange(allTasksFolder);
+  if (target.classList.contains('active')) {
+    handleFolderChange(document.querySelector('[data-projects-container] > *'));
+  };
 }
 
 display.updateContainer(storage.getCurrentProject());
 display.updateProjectsContainer();
+handleFolderChange(document.querySelector('[data-projects-container] > *'))

@@ -1,10 +1,10 @@
 class Local {
   constructor() {
-    this.currentProjectName = 'General';
-
     if (localStorage.length === 0) {
       this.addProject('General');
     }
+
+    this.currentProjectName = Object.keys(localStorage)[0];
   }
 
   updateTask(taskId, taskObject, projectName = this.currentProjectName) {

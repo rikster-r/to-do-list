@@ -55,14 +55,31 @@ projectsContainer.addEventListener('click', function (e) {
     handleProjectRemove(e.target.parentElement);
     return;
   }
-  let target = (e.target.parentElement.tagName == 'BUTTON' ? e.target.parentElement : e.target);
+
+  let target;
+  if (e.target.parentElement.tagName == 'BUTTON') {
+    target = e.target.parentElement;
+  } else if (e.target.parentElement.tagName == 'svg') {
+    target = e.target.parentElement.parentElement;
+  } else {
+    target = e.target
+  }
+
   handleFolderChange(target);
 })
 
 foldersContainer.addEventListener('click', function (e) {
   addTaskButton.classList.add('hidden');
 
-  let target = (e.target.parentElement.tagName == 'BUTTON' ? e.target.parentElement : e.target);
+  let target;
+  if (e.target.parentElement.tagName == 'BUTTON') {
+    target = e.target.parentElement;
+  } else if (e.target.parentElement.tagName == 'svg') {
+    target = e.target.parentElement.parentElement;
+  } else {
+    target = e.target
+  }
+  
   handleFolderChange(target);
 })
 
