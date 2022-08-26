@@ -107,11 +107,6 @@ aside {
     content: "No case sensitive repeating names - custom or given (e.g. All Tasks)";
   }
 
-  .home h3:hover::after {
-    @include tooltip();
-    content: "Controls not working and I'm to lazy to fix";
-  }
-
   .projects-container {
     .cross-icon {
       margin-left: auto;

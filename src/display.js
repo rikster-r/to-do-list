@@ -12,6 +12,8 @@ class Display {
     if (taskObject.status === 'finished') task.classList.add('finished');
     if (taskObject.status === 'unfinished') task.classList.remove('finished');
     task.id = id.toString();
+    task.dataset.originProject = taskObject.originProject;
+
     task.addEventListener('click', function (e) {
       let targetElement = (e.target.tagName === 'path') ? e.target.parentElement : e.target;
       handleTaskClick(targetElement, this);

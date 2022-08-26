@@ -1,28 +1,32 @@
 class Local {
   constructor() {
-    this._currentProjectName = 'General';
+    this.currentProjectName = 'General';
 
     if (localStorage.length === 0) {
-      localStorage.setItem('General', JSON.stringify({}));
+      this.addProject('General');
     }
   }
 
-  updateTask(taskId, taskObject) {
-    let currentProjectTasks = this.getCurrentProject();
+  updateTask(taskId, taskObject, projectName = this.currentProjectName) {
+    let currentProjectTasks = this.getProject(projectName);
     currentProjectTasks[taskId] = taskObject;
 
-    localStorage.setItem(this._currentProjectName, JSON.stringify(currentProjectTasks));
+    localStorage.setItem(projectName, JSON.stringify(currentProjectTasks));
   }
 
-  removeTask(taskId) {
-    let currentProjectTasks = this.getCurrentProject();
+  removeTask(taskId, projectName) {
+    let currentProjectTasks = this.getProject(projectName);
     delete currentProjectTasks[taskId];
 
-    localStorage.setItem(this._currentProjectName, JSON.stringify(currentProjectTasks));
+    localStorage.setItem(projectName, JSON.stringify(currentProjectTasks));
+  }
+
+  getProject(name) {
+    return JSON.parse(localStorage.getItem(name));
   }
 
   getCurrentProject() {
-    return JSON.parse(localStorage.getItem(this._currentProjectName));
+    return this.getProject(this.currentProjectName);
   }
 
   addProject(name) {
@@ -31,10 +35,6 @@ class Local {
 
   removeProject(name) {
     localStorage.removeItem(name)
-  }
-
-  set currentProjectName(value) {
-    this._currentProjectName = value;
   }
 }
 

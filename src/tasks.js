@@ -1,10 +1,11 @@
 export class Task {
-  constructor(title, description, dueDate) {
+  constructor(title, description, dueDate, originProject) {
     this.title = title.trim();
     this.description = description.trim() || 'No Description';
     this.dueDate = dueDate;
     this.priority = 'standard';
     this.status = 'unfinished';
+    this.originProject = originProject;
   }
 }
 

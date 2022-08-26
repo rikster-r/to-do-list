@@ -15,8 +15,9 @@ export function handleNewTask(formData) {
   let title = formData.get('title');
   let description = formData.get('description')
   let dueDate = formData.get('dueDate');
+  let originProject = storage.currentProjectName;
 
-  let task = new Task(title, description, dueDate);
+  let task = new Task(title, description, dueDate, originProject);
 
   storage.updateTask(generateId(), task)
   display.updateContainer(storage.getCurrentProject());
@@ -24,24 +25,25 @@ export function handleNewTask(formData) {
 
 export function handleTaskClick(target, taskElement) {
   let taskId = taskElement.id;
-  let taskObject = storage.getCurrentProject()[taskId];
+  let projectName = taskElement.dataset.originProject;
+  let taskObject = storage.getProject(projectName)[taskId];
 
   if (target.classList.contains('fa-star')) {
     taskObject = taskMutator.changePriority(taskObject);
-    storage.updateTask(taskId, taskObject);
-    display.updateContainer(storage.getCurrentProject());
+    storage.updateTask(taskId, taskObject, projectName);
+    display.updateContainer(getFolderObject(storage.currentProjectName));
 
   } else if (target.classList.contains('fa-trash')) {
-    storage.removeTask(taskId);
-    display.updateContainer(storage.getCurrentProject());
+    storage.removeTask(taskId, projectName);
+    display.updateContainer(getFolderObject(storage.currentProjectName));
 
   } else if (target.classList.contains('fa-angle-down') || target.classList.contains('fa-angle-up')) {
     display.changeDescriptionVisibility(taskElement, target);
 
   } else {
     taskObject = taskMutator.changeTaskStatus(taskObject);
-    storage.updateTask(taskId, taskObject);
-    display.updateContainer(storage.getCurrentProject());
+    storage.updateTask(taskId, taskObject, projectName);
+    display.updateContainer(getFolderObject(storage.currentProjectName));
 
   }
 }
@@ -108,7 +110,7 @@ function getFolderObject(title) {
 }
 
 export function handleProjectRemove(target) {
-  let title = target.children[1].innerText;
+  let title = target.children[1].innerText; //title from span element
   storage.removeProject(title);
   display.updateProjectsContainer();
 
